@@ -1,19 +1,30 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Palendrom {
 
     public boolean isPalendrom(final List<String> list) {
-        StringBuilder sb = new StringBuilder();
-        StringBuilder sb2 = new StringBuilder();
-        for (String s : list) {
-            sb.append(s);
+        if (list.isEmpty()){
+            return false;
         }
-        char[] charArray = sb.toString().toCharArray();
-        for (int i = charArray.length - 1; i >= 0; i--) {
-            sb2.append(charArray[i]);
-        }
-        return sb.toString().contains(sb2.toString());
+        List<String> objects = new ArrayList<>(list);
+        Collections.reverse(objects);
+        IntStream.range(0, objects.size())
+                .forEach(i -> objects.set(i, new StringBuilder(objects.get(i)).reverse().toString()));
+        return objects.equals(list);
     }
+
+    public boolean isPalendrom2(List<?> list) {
+        if (list.isEmpty()){
+            return false;
+        }
+        List<?> objects = new ArrayList<>(list);
+        Collections.reverse(list);
+        return objects.equals(list);
+    }
+
 }
