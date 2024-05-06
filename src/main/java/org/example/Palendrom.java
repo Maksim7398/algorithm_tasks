@@ -8,23 +8,33 @@ import java.util.stream.IntStream;
 public class Palendrom {
 
     public boolean isPalendrom(final List<String> list) {
-        if (list.isEmpty()){
+        if (list.isEmpty()) {
             return false;
         }
-        List<String> objects = new ArrayList<>(list);
-        Collections.reverse(objects);
-        IntStream.range(0, objects.size())
-                .forEach(i -> objects.set(i, new StringBuilder(objects.get(i)).reverse().toString()));
-        return objects.equals(list);
+        List<String> reverseList = new ArrayList<>(list);
+        Collections.reverse(reverseList);
+        IntStream.range(0, reverseList.size())
+                .forEach(i -> reverseList.set(i, new StringBuilder(reverseList.get(i)).reverse().toString()));
+        return reverseList.equals(list);
     }
 
     public boolean isPalendrom2(List<?> list) {
-        if (list.isEmpty()){
+        if (list.isEmpty()) {
             return false;
         }
-        List<?> objects = new ArrayList<>(list);
-        Collections.reverse(list);
-        return objects.equals(list);
+        int size = list.size();
+        for (int i = 0, j = size-1;;){
+            return list.get(i).equals(list.get(j));
+        }
     }
 
+    public boolean isPalendrom3(List<?> list) {
+        if (list.isEmpty()) {
+            return false;
+        }
+        int size = list.size();
+        List<?> reverseList = list.subList(0, size / 2);
+        Collections.reverse(reverseList);
+        return list.subList((size - (size / 2)), size).equals(reverseList);
+    }
 }
